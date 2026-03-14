@@ -1,34 +1,46 @@
-struct modint {
+struct ModInt {
     static const int mod = 1e9 + 7;
     int val;
 
-    modint(int val=0) : val(val) {}
+    ModInt(int val=0) : val(val) {}
 
-    friend modint operator+(modint a, modint b) {
-        modint res(a.val + b.val);
-        res.val -= (res.val >= modint::mod) * modint::mod;
-        return res;
-    }
-
-    friend modint operator-(modint a, modint b) {
-        modint res(a.val - b.val);
-        res.val += (res.val < 0) * modint::mod;
-        return res;
-    }
-
-    friend modint operator*(modint a, modint b) {
-        return modint((ll) a.val * b.val % modint::mod);
-    }
-
-    friend istream& operator>>(istream& i, modint& a) {
-        return i >> a.val;
-    }
-
-    friend ostream& operator<<(ostream& o, modint a) {
-        return o << a.val;
-    }
 
     operator int() {
         return val;
+    }
+
+    friend istream& operator>>(istream &i, ModInt &x) {
+        return i >> x.val;
+    }
+
+    friend ostream& operator<<(ostream &o, const ModInt &x) {
+        return o << x.val;
+    }
+
+    friend ModInt operator+(const ModInt &lhs, const ModInt &rhs) {
+        return (lhs.val + rhs.val) % mod;
+    }
+
+    friend ModInt& operator+=(ModInt &lhs, const ModInt &rhs) {
+        lhs.val = (lhs.val + rhs.val) % mod;
+        return lhs;
+    }
+
+    friend ModInt operator-(const ModInt &lhs, const ModInt &rhs) {
+        return ((lhs.val - rhs.val) % mod + mod) % mod;
+    }
+
+    friend ModInt& operator-=(ModInt &lhs, const ModInt &rhs) {
+        lhs.val = ((lhs.val - rhs.val) % mod + mod) % mod;
+        return lhs;
+    }
+
+    friend ModInt operator*(const ModInt &lhs, const ModInt &rhs) {
+        return ((ll) lhs.val * rhs.val) % mod;
+    }
+
+    friend ModInt& operator*=(ModInt &lhs, const ModInt &rhs) {
+        lhs.val = ((ll) lhs.val * rhs.val) % mod;
+        return lhs;
     }
 };
