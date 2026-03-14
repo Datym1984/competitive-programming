@@ -4,38 +4,34 @@ struct ModInt {
     static const int base1 = 29, mod1 = 1e9 + 7;
     static const int base2 = 31, mod2 = 999973423;//1e9 + 9;
 
-    int val1=0, val2=0;
+    int val1, val2;
 
-    ModInt() = default;
-
-    ModInt(int a, int b) : val1(a), val2(b) {}
-
-    ModInt(int a) : val1(a), val2(a) {}
-
-    friend ModInt operator+(ModInt a, ModInt b) {
+    ModInt(int val1=0, int val2=0) : val1(val1), val2(val2) {}
+    
+    friend ModInt operator+(const ModInt &a, const ModInt &b) {
         ModInt res(a.val1 + b.val1, a.val2 + b.val2);
         res.val1 -= (res.val1 >= ModInt::mod1) * ModInt::mod1;
         res.val2 -= (res.val2 >= ModInt::mod2) * ModInt::mod2;
         return res;
     }
 
-    friend ModInt operator-(ModInt a, ModInt b) {
+    friend ModInt operator-(const ModInt &a, const ModInt &b) {
         ModInt res(a.val1 - b.val1, a.val2 - b.val2);
         res.val1 += (res.val1 < 0) * ModInt::mod1;
         res.val2 += (res.val2 < 0) * ModInt::mod2;
         return res;
     }
 
-    friend ModInt operator*(ModInt a, ModInt b) {
-        ModInt res(((long long) a.val1 * b.val1) % ModInt::mod1, ((long long) a.val2 * b.val2) % ModInt::mod2);
+    friend ModInt operator*(const ModInt &a, const ModInt &b) {
+        ModInt res(((ll) a.val1 * b.val1) % ModInt::mod1, ((ll) a.val2 * b.val2) % ModInt::mod2);
         return res;
     }
 
-    friend bool operator==(ModInt a, ModInt b) {
+    friend bool operator==(const ModInt &a, const ModInt &b) {
         return a.val1 == b.val1 && a.val2 == b.val2;
     }
 
-    friend bool operator<(ModInt a, ModInt b) {
+    friend bool operator<(const ModInt &a, const ModInt &b) {
         if (a.val1 == b.val1)
             return a.val2 < b.val2;
         return a.val1 < b.val1;
@@ -44,7 +40,7 @@ struct ModInt {
 
 array<ModInt, maxn> pows;
 
-vector<ModInt> BuildPrefHashes(string &s) {
+vector<ModInt> build_pref_hashes(string &s) {
     int n = (int) s.size();
     vector<ModInt> P(n);
     ModInt h;
@@ -55,7 +51,7 @@ vector<ModInt> BuildPrefHashes(string &s) {
     return P;
 }
 
-vector<ModInt> BuildSufHashes(string &s) {
+vector<ModInt> build_suf_hashes(string &s) {
     int n = (int) s.size();
     vector<ModInt> S(n);
     ModInt h;
@@ -66,7 +62,7 @@ vector<ModInt> BuildSufHashes(string &s) {
     return S;
 }
 
-ModInt GetHash(int l, int r, vector<ModInt> &A, int flag=0) {//flag = 0 -> straight hash, flag != 0 -> reverse hash; return hash substring[l:r]
+ModInt get_hash(int l, int r, vector<ModInt> &A, int flag=0) {//flag = 0 -> straight hash, flag != 0 -> reverse hash; return hash substring[l:r]
     if (flag == 0) {
         if (l == 0)
             return A[r];
