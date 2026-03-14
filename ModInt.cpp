@@ -4,7 +4,6 @@ struct ModInt {
 
     ModInt(int val=0) : val(val) {}
 
-
     operator int() {
         return val;
     }
@@ -18,7 +17,7 @@ struct ModInt {
     }
 
     friend ModInt operator+(const ModInt &lhs, const ModInt &rhs) {
-        return (lhs.val + rhs.val) % mod;
+        return ModInt((lhs.val + rhs.val) % mod);
     }
 
     friend ModInt& operator+=(ModInt &lhs, const ModInt &rhs) {
@@ -27,7 +26,7 @@ struct ModInt {
     }
 
     friend ModInt operator-(const ModInt &lhs, const ModInt &rhs) {
-        return ((lhs.val - rhs.val) % mod + mod) % mod;
+        return ModInt(((lhs.val - rhs.val) % mod + mod) % mod);
     }
 
     friend ModInt& operator-=(ModInt &lhs, const ModInt &rhs) {
@@ -36,11 +35,32 @@ struct ModInt {
     }
 
     friend ModInt operator*(const ModInt &lhs, const ModInt &rhs) {
-        return ((ll) lhs.val * rhs.val) % mod;
+        return ModInt(((ll) lhs.val * rhs.val) % mod);
     }
 
     friend ModInt& operator*=(ModInt &lhs, const ModInt &rhs) {
         lhs.val = ((ll) lhs.val * rhs.val) % mod;
         return lhs;
+    }
+
+    friend ModInt operator/(const ModInt &lhs, const ModInt &rhs) {
+        return lhs * rhs.power(mod - 2);
+    }
+
+    friend ModInt& operator/=(ModInt &lhs, const ModInt &rhs) {
+        lhs = lhs / rhs;
+        return lhs;
+    }
+
+private:
+    ModInt power(int ind) const {
+        if (ind == 0)
+            return ModInt(1);
+        else if (ind % 2 == 0) {
+            ModInt res = power(ind / 2);
+            return res * res;
+        }
+        else
+            return this->power(ind - 1) * (*this);
     }
 };
