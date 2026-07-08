@@ -1,9 +1,9 @@
 struct LCA {
-    const int k = 20;
+    const int k = 20;// (1 << (k + 1)) >= n !!!
     int t = 0;
     vector<vector<int>> g;
-    static vector<vector<int>> up;
-    static vector<int> tin, tout, depth;
+    vector<vector<int>> up;
+    vector<int> tin, tout, depth;
     
     void dfs(int v, int p) {
         tin[v] = t++;
@@ -26,7 +26,7 @@ struct LCA {
     }
     
     int get_lca(int v, int u) {
-        auto is_par = [](int v, int u){
+        auto is_par = [this](int v, int u){
             return tin[v] <= tin[u] && tout[v] >= tout[u];
         };
         if (is_par(v, u)) return v;
