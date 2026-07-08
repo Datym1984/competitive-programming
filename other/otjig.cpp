@@ -1,6 +1,11 @@
+//sample using otjig method
+//statment: you need to find placement N
+//queens on chess board(N*N) that queens
+//don't attack each other
+
 //#pragma GCC optimize("Ofast,unroll-loops")
-//#pragma target("avx,avx2")
 #include <bits/stdc++.h>
+//#pragma target("avx,avx2")
 #define all(x) x.begin(), x.end()
 #define rall(x) x.rbegin(), x.rend()
 #define mp make_pair
