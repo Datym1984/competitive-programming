@@ -1,5 +1,5 @@
 struct FordFalkerson {
-    static const int INF = 1e9;
+    const int INF = 1e9;
     vector<vector<int>> g;
     vector<vector<int>> f, c;
 
