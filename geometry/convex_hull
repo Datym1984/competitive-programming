@@ -1,0 +1,34 @@
+vector<pt> convex_hull(vector<pt> A) {
+    int n = A.size();
+    pt p1 = A[0], p2 = A[0];
+    for (int i = 0; i < n; i++) {
+        p1 = min(p1, A[i]);
+        p2 = max(p2, A[i]);
+    }
+    vector<pt> up, down;
+    for (int i = 0; i < n; i++) {
+        if (cross(p2 - p1, A[i] - p1) >= 0)
+            up.push_back(A[i]);
+        if (cross(p2 - p1, A[i] - p1) <= 0)
+            down.push_back(A[i]);
+    }
+    sort(all(up));
+    sort(rall(down));
+    vector<pt> st1{up[0], up[1]}, st2{down[0], down[1]};
+    for (int i = 2; i < up.size(); i++) {
+        int sz = st1.size();
+        while (sz >= 2 && cross(st1[sz - 1] - st1[sz - 2], up[i] - st1[sz - 1]) >= 0)
+            st1.pop_back(), sz--;
+        st1.push_back(up[i]);
+    }
+    for (int i = 2; i < down.size(); i++) {
+        int sz = st2.size();
+        while (sz >= 2 && cross(st2[sz - 1] - st2[sz - 2], down[i] - st2[sz - 1]) >= 0)
+            st2.pop_back(), sz--;
+        st2.push_back(down[i]);
+    }
+    st1.pop_back(), st2.pop_back();
+    for (auto i : st2)
+        st1.push_back(i);
+    return st1;
+}
