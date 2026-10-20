@@ -3,21 +3,6 @@
 //queens on chess board(N*N) that queens
 //don't attack each other
 
-//#pragma GCC optimize("Ofast,unroll-loops")
-#include <bits/stdc++.h>
-//#pragma target("avx,avx2")
-#define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
-#define mp make_pair
-#define rep(n) for (int (i) = 0; (i) < (n); (i)++)
-#define debug(x) cerr << __LINE__ << ": " << (#x) << " = " << x << endl
-
-//#define int long long
-using ll = long long;
-using ld = long double;
-
-using namespace std;
-
 mt19937 gen(1984);
 
 bool check(vector<int> &P) {
@@ -121,30 +106,4 @@ void solve() {
     rep(n) {
         cout << P[i] + 1 << '\n';
     }
-}
-
-//#define FILE
-//#define LOCAL
-//#define DEBUG
-signed main() {
-#ifdef FILE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
-#ifndef DEBUG
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.precision(20);
-    int tt = 1;
-    //cin >> tt;
-    while (tt--) {
-        solve();
-    }
-#else
-    int cnt = 0;
-    while (true) {
-        cout << ++cnt << '\n';
-
-    }
-#endif
 }
