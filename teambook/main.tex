@@ -2,17 +2,21 @@
 \documentclass[9pt,a4paper]{extarticle}
 \input{preamble.tex}
 \input{metadata.tex}
+\input{headers.tex}
 \begin{document}
+\pagestyle{empty}
+\setcounter{page}{0}
 \begin{center}
-  {\Large\bfseries\TeamBookTitle\par}
-  \vspace{2pt}
-  {\small\TeamBookSubtitle\par}
-  {\footnotesize\TeamBookRevision\quad\textbullet\quad\TeamBookFileCount\ файлов}
+  \strut\vspace{3cm}\par
+  {\fontsize{25}{30}\selectfont\TeamBookSubtitle\par}
+  \vspace{0.5cm}
+  {\fontsize{60}{60}\selectfont\TeamBookTitle\par}
+  \vfill
+  {\fontsize{21}{25}\selectfont Team Reference Document\par}
+  \vspace{1cm}
 \end{center}
-\begin{multicols}{3}
-  \tableofcontents
-\end{multicols}
 \clearpage
+\pagestyle{fancy}
 \begin{multicols*}{3}
   \input{contents.tex}
 \end{multicols*}

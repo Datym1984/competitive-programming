@@ -38,7 +38,7 @@ class BuildTests(unittest.TestCase):
         (self.template / "config.json").write_text(json.dumps(self.config), encoding="utf-8")
 
     def generate(self):
-        with contextlib.redirect_stdout(io.StringIO()), patch.object(build, "revision", return_value="test"):
+        with contextlib.redirect_stdout(io.StringIO()):
             build.generate()
         return json.loads((self.output / "manifest.json").read_text(encoding="utf-8"))
 
@@ -58,7 +58,13 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(source.read_bytes(), original)
         contents = (self.output / "contents.tex").read_text(encoding="utf-8")
         self.assertIn(r"A \& B's\_\%", contents)
-        self.assertIn(r"\section{Алгоритмы}", contents)
+        self.assertIn(r"\BookChapter{Алгоритмы}", contents)
+        self.assertIn(r"\BookAlgorithm{001}{A \& B's\_\%.cpp}{2}", contents)
+        self.assertIn(r"\BookAlgorithmEnd{001}", contents)
+        headers = (self.output / "headers.tex").read_text(encoding="utf-8")
+        self.assertIn(r"\BookHeaderEntry{001}{A \& B's\_\%}", headers)
+        self.assertEqual(headers.count(r"\BookHeaderEntry"), 3)
+        self.assertNotIn("commit", (self.output / "metadata.tex").read_text(encoding="utf-8"))
         before = contents
         self.generate()
         self.assertEqual((self.output / "contents.tex").read_text(encoding="utf-8"), before)

@@ -1,7 +1,9 @@
 # Competitive Programming Teambook
 
-Библиотека алгоритмов и компактный тимбук: A4 в альбомной ориентации,
-три колонки, оглавление со ссылками, подсветка C++ и номера строк.
+Библиотека алгоритмов и тимбук в оформлении KACTL: титульный лист,
+A4 в альбомной ориентации, три колонки с тонкими разделителями,
+чёрно-белые листинги Courier и названия алгоритмов вверху каждой страницы.
+В PDF есть закладки разделов и файлов; номера строк не печатаются.
 В PDF включаются все исходники из семи разделов библиотеки, включая
 русские комментарии. Исходники алгоритмов при сборке не изменяются.
 
@@ -16,8 +18,9 @@
   сборки используют кеш.
 - **XeLaTeX** из [TeX Live](https://tug.org/texlive/) или
   [MiKTeX](https://miktex.org/). Нужны пакеты `fontspec`, `geometry`,
-  `multicol`, `fancyhdr`, `listings`, `xcolor`, `titlesec`, `hyperref`,
-  класс `extarticle` и OpenType-шрифты **CM Unicode** (`cm-unicode`).
+  `multicol`, `fancyhdr`, `listings`, `graphicx`, `refcount`, `hyperref`,
+  класс `extarticle` и OpenType-шрифты **CM Unicode** (`cm-unicode`)
+  и **GNU FreeFont** (`gnu-freefont`, семейство FreeMono с метриками Courier).
   В MiKTeX можно включить автоматическую установку недостающих пакетов.
 
 Из корня репозитория:
@@ -44,7 +47,8 @@ python build.py --output build/my-teambook.pdf
 
 - `teambook/main.tex` — шаблон документа.
 - `teambook/preamble.tex` — поля, колонки, шрифты и оформление кода.
-- `teambook/config.json` — название, подзаголовок, порядок и названия разделов.
+- `teambook/config.json` — название, подзаголовок, короткое имя в колонтитуле
+  (`header`), порядок и названия разделов.
 - `build.py` — генерация содержимого и сборка PDF.
 
 Чтобы добавить алгоритм, положите `.cpp` в соответствующую папку:
@@ -64,12 +68,16 @@ cd build/teambook
 tectonic main.tex
 ```
 
-Вместо Tectonic можно трижды выполнить `xelatex main.tex`, чтобы заполнить
-оглавление и обновить номера страниц. Вся папка `build/teambook` переносима:
+Вместо Tectonic можно трижды выполнить `xelatex main.tex`, чтобы обновить
+ссылки на страницы и колонтитулы. Вся папка `build/teambook` переносима:
 её можно скопировать в другое место или загрузить в Overleaf и выбрать
 **XeLaTeX**, основной файл **`main.tex`**. Редактировать следует оригинальные
 алгоритмы и шаблоны: содержимое `build/` перезаписывается сборкой.
 `manifest.json` в этой папке связывает листинги с исходными файлами.
+`headers.tex` задаёт названия алгоритмов в колонтитулах. LaTeX определяет
+страницы начала и конца каждого листинга, поэтому наверху перечислены
+все алгоритмы на странице, в том числе продолжающиеся с предыдущей.
+Хеши и другие сведения Git в PDF не добавляются.
 
 PDF содержит текущие версии алгоритмов. Пометки `unfinished` и
 `may have mistakes` сохранены в названиях; сборка документа не проверяет
@@ -90,6 +98,8 @@ GitHub Actions собирает PDF при push, pull request и ручном з
 python -m unittest discover -s tests
 ```
 
-Формат тимбука вдохновлён
-[ITMO Shuffle Duffle Muzzle Muff](https://github.com/GMKirkon/ITMO_Shuffle_Duffle_Muzzle_Muff_teambook),
-основанным на KACTL. Шаблон и скрипт в этом репозитории написаны отдельно.
+Оформление повторяет
+[kactl.pdf команды ITMO Shuffle Duffle Muzzle Muff](https://github.com/GMKirkon/ITMO_Shuffle_Duffle_Muzzle_Muff_teambook/blob/main/kactl/kactl.pdf).
+Параметры колонок, шрифтов, заголовков и листингов, а также макрос
+резервирования места адаптированы из их `kactlpkg.sty` (лицензия CC0).
+Колонтитулы реализованы через метки страниц LaTeX и не требуют shell escape.
