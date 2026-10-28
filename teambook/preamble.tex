@@ -1,0 +1,65 @@
+\usepackage{fontspec}
+% CM Unicode is shipped by TeX Live / Tectonic and supports Cyrillic.
+\setmainfont{cmunrm.otf}[
+  BoldFont=cmunbx.otf, ItalicFont=cmunti.otf, BoldItalicFont=cmunbi.otf]
+\setmonofont{cmuntt.otf}
+\usepackage[a4paper,landscape,left=8mm,right=8mm,top=11mm,bottom=10mm,
+  headheight=12pt,headsep=4pt]{geometry}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage[unicode,hidelinks]{hyperref}
+\setlength{\columnsep}{6mm}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\parindent}{0pt}
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{Содержание}
+\titleformat{\section}{\large\bfseries}{\thesection}{0.4em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.4em}{}
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+\titlespacing*{\subsection}{0pt}{5pt}{2pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\TeamBookTitle}
+\fancyhead[R]{\small\TeamBookRevision\quad|\quad\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\definecolor{codecomment}{gray}{0.36}
+\definecolor{codekeyword}{RGB}{20,45,100}
+\lstset{
+  language=C++,
+  basicstyle=\fontsize{7}{8}\selectfont\ttfamily,
+  keywordstyle=\color{codekeyword},
+  commentstyle=\color{codecomment},
+  stringstyle=\color{codecomment},
+  numbers=left,
+  numberstyle=\fontsize{5}{6}\selectfont\color{codecomment},
+  numbersep=3pt,
+  xleftmargin=12pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=4,
+  breaklines=true,
+  breakatwhitespace=false,
+  breakindent=8pt,
+  aboveskip=2pt,
+  belowskip=3pt,
+  upquote=true,
+  extendedchars=true,
+  % listings needs explicit mappings for non-ASCII letters, even in XeTeX.
+  literate=
+    {а}{{а}}1 {б}{{б}}1 {в}{{в}}1 {г}{{г}}1 {д}{{д}}1 {е}{{е}}1
+    {ё}{{ё}}1 {ж}{{ж}}1 {з}{{з}}1 {и}{{и}}1 {й}{{й}}1 {к}{{к}}1
+    {л}{{л}}1 {м}{{м}}1 {н}{{н}}1 {о}{{о}}1 {п}{{п}}1 {р}{{р}}1
+    {с}{{с}}1 {т}{{т}}1 {у}{{у}}1 {ф}{{ф}}1 {х}{{х}}1 {ц}{{ц}}1
+    {ч}{{ч}}1 {ш}{{ш}}1 {щ}{{щ}}1 {ъ}{{ъ}}1 {ы}{{ы}}1 {ь}{{ь}}1
+    {э}{{э}}1 {ю}{{ю}}1 {я}{{я}}1
+    {А}{{А}}1 {Б}{{Б}}1 {В}{{В}}1 {Г}{{Г}}1 {Д}{{Д}}1 {Е}{{Е}}1
+    {Ё}{{Ё}}1 {Ж}{{Ж}}1 {З}{{З}}1 {И}{{И}}1 {Й}{{Й}}1 {К}{{К}}1
+    {Л}{{Л}}1 {М}{{М}}1 {Н}{{Н}}1 {О}{{О}}1 {П}{{П}}1 {Р}{{Р}}1
+    {С}{{С}}1 {Т}{{Т}}1 {У}{{У}}1 {Ф}{{Ф}}1 {Х}{{Х}}1 {Ц}{{Ц}}1
+    {Ч}{{Ч}}1 {Ш}{{Ш}}1 {Щ}{{Щ}}1 {Ъ}{{Ъ}}1 {Ы}{{Ы}}1 {Ь}{{Ь}}1
+    {Э}{{Э}}1 {Ю}{{Ю}}1 {Я}{{Я}}1
+}

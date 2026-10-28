@@ -1,0 +1,19 @@
+% Main template. Run python build.py from the repository root first.
+\documentclass[9pt,a4paper]{extarticle}
+\input{preamble.tex}
+\input{metadata.tex}
+\begin{document}
+\begin{center}
+  {\Large\bfseries\TeamBookTitle\par}
+  \vspace{2pt}
+  {\small\TeamBookSubtitle\par}
+  {\footnotesize\TeamBookRevision\quad\textbullet\quad\TeamBookFileCount\ файлов}
+\end{center}
+\begin{multicols}{3}
+  \tableofcontents
+\end{multicols}
+\clearpage
+\begin{multicols*}{3}
+  \input{contents.tex}
+\end{multicols*}
+\end{document}

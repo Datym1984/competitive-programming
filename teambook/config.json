@@ -1,0 +1,13 @@
+{
+  "title": "Competitive Programming - Teambook",
+  "subtitle": "Datym1984 / competitive-programming",
+  "sections": [
+    {"directory": "data_structures", "title": "Структуры данных"},
+    {"directory": "dp", "title": "Динамическое программирование"},
+    {"directory": "graphs", "title": "Графы"},
+    {"directory": "number_theory", "title": "Теория чисел"},
+    {"directory": "geometry", "title": "Геометрия"},
+    {"directory": "strings", "title": "Строки"},
+    {"directory": "other", "title": "Разное"}
+  ]
+}

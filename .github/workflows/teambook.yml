@@ -1,0 +1,46 @@
+name: Build teambook
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test generator
+        run: python -m unittest discover -s tests
+      - name: Install Tectonic 0.17.0
+        env:
+          TECTONIC_URL: https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-unknown-linux-gnu.tar.gz
+        run: |
+          curl --fail --location --retry 3 "$TECTONIC_URL" --output "$RUNNER_TEMP/tectonic.tar.gz"
+          tar -xzf "$RUNNER_TEMP/tectonic.tar.gz" -C "$RUNNER_TEMP" tectonic
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+      - name: Build PDF
+        run: python build.py --engine tectonic
+      - name: Upload PDF and standalone LaTeX project
+        uses: actions/upload-artifact@v4
+        with:
+          name: teambook
+          if-no-files-found: error
+          path: |
+            teambook.pdf
+            build/teambook/*.tex
+            build/teambook/manifest.json
+            build/teambook/snippets/
+      - name: Upload diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: teambook-logs
+          if-no-files-found: ignore
+          path: build/teambook/*.log
