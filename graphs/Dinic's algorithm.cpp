@@ -50,7 +50,7 @@ struct Dinic {
             int u = edges[id].v ^ edges[id].u ^ v;
             if (level[u] != level[v] + 1)
                 continue;
-            int f2 = dfs(u, t, min(f, edges[id].c - edges[id].f));
+            int f2 = dfs(u, t, min(f - pushed, edges[id].c - edges[id].f));
             if (f2 != 0) {
                 edges[id].f += f2;
                 edges[id ^ 1].f -= f2;
